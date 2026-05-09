@@ -790,6 +790,57 @@ a:hover { color: $mauve; text-decoration: underline; }
   a        { color: $blue; }
 }
 
+// About: avatar + blurb layout
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 22px 28px;
+  align-items: start;
+
+  .about-blurb { grid-column: 1; grid-row: 1; }
+  > div:last-child { grid-column: 1; grid-row: 2; } // links row
+  .about-avatar  { grid-column: 2; grid-row: 1 / span 2; }
+}
+
+.about-avatar {
+  margin: 0;
+  width: 200px;
+  justify-self: end;
+
+  .avatar-frame {
+    background: $mantle;
+    border: 1px solid $surface1;
+    border-radius: 8px;
+    padding: 8px 8px 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    transform: rotate(1.2deg);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: 4px;
+      filter: saturate(1.05);
+    }
+
+    &:hover {
+      transform: rotate(0deg) translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+    }
+  }
+
+  figcaption {
+    margin-top: 6px;
+    text-align: center;
+    font-family: $mono-font;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+  }
+}
+
 // Inline highlight (used in news, etc.)
 .hl { color: $pink; font-weight: 700; }
 
@@ -886,6 +937,16 @@ a:hover { color: $mauve; text-decoration: underline; }
   .pub-info .pub-title { font-size: 16px; }
 
   .about-blurb { font-size: 14px; }
+
+  // About: stack avatar above blurb on phones
+  .about-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+
+    .about-blurb     { grid-column: 1; grid-row: 2; }
+    > div:last-child { grid-column: 1; grid-row: 3; }
+    .about-avatar    { grid-column: 1; grid-row: 1; justify-self: start; width: 160px; }
+  }
 
   // Footer
   .site-footer { font-size: 11px; margin: 24px auto 96px; }
@@ -1139,6 +1200,20 @@ body.theme-latte {
     .me-name { color: $l-mauve; }
     .hl      { color: $l-pink; }
     a        { color: $l-blue; }
+  }
+  .about-avatar {
+    .avatar-frame {
+      background: $l-mantle;
+      border-color: $l-surface1;
+      box-shadow: 0 6px 18px rgba(76,79,105,0.18);
+      &:hover { box-shadow: 0 10px 24px rgba(76,79,105,0.28); }
+    }
+    figcaption {
+      .tk-com  { color: $l-overlay1; }
+      .tk-prop { color: $l-blue; }
+      .tk-op   { color: $l-overlay1; }
+      .tk-str  { color: $l-green; }
+    }
   }
   .hl { color: $l-pink; }
   .contact-pre { color: $l-text; }
